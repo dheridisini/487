@@ -114,8 +114,8 @@ def format_stats(stats, group_by):
                 f"Impressions: {item.get('impression', 0):,}\n"
                 f"Clicks: {item.get('clicks', 0):,}\n"
                 f"CTR: {item.get('ctr', 0):.2f}%\n"
-                f"Earnings: ${float(item.get('revenue', 0)):.3f}\n"
                 f"CPM: ${float(item.get('cpm', 0)):.3f}\n"
+                f"Earnings: ${float(item.get('revenue', 0)):.3f}\n"
             )
     else:  # country
         for item in items:
@@ -125,8 +125,8 @@ def format_stats(stats, group_by):
                 f"Impressions: {item.get('impression', 0):,}\n"
                 f"Clicks: {item.get('clicks', 0):,}\n"
                 f"CTR: {item.get('ctr', 0):.2f}%\n"
-                f"Earnings: ${float(item.get('revenue', 0)):.3f}\n"
                 f"CPM: ${float(item.get('cpm', 0)):.3f}\n"
+                f"Earnings: ${float(item.get('revenue', 0)):.3f}\n"
             )
     
     return message
