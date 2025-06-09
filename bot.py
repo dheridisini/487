@@ -177,6 +177,7 @@ async def generate_report(update: Update, context: ContextTypes.DEFAULT_TYPE, st
 
 # Command handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logging.info(f"User {update.effective_user.id} started the bot.")
     user_id = update.effective_user.id
     session = get_user_session(user_id)
 
@@ -198,6 +199,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END  # keluar dari conversation apapun
 
 async def login(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logger.info(f"[LOGIN] User {update.effective_user.id} trying to login.")
     user_id = update.effective_user.id
     text = update.message.text.strip()
     
@@ -469,13 +471,11 @@ async def date_filter_handler(update: Update, context: ContextTypes.DEFAULT_TYPE
 def main():
     application = Application.builder().token(BOT_TOKEN).build()
 
-    # ⬅️ Start handler DI LUAR ConversationHandler
-    application.add_handler(CommandHandler('start', start))
-
-    # 🎯 Conversation handler untuk bagian interaktif lainnya
+    # ✅ Pindahkan /start ke dalam ConversationHandler
     conv_handler = ConversationHandler(
         entry_points=[
-            CallbackQueryHandler(button_handler)  # misalnya menu pakai tombol
+            CommandHandler('start', start),  # <- DITAMBAH INI
+            CallbackQueryHandler(button_handler)
         ],
         states={
             LOGIN: [MessageHandler(filters.TEXT & ~filters.COMMAND, login)],
